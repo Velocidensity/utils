@@ -9,9 +9,9 @@ def link(src: Path, dst: Path, hard: bool = False):
         dst = dst / src.name
 
     if hard:
-        return os.link(src.resolve(), dst.resolve())
+        return os.link(src, dst)
 
-    os.symlink(src.resolve(), dst.resolve())
+    os.symlink(src, dst)
 
 
 if __name__ == "__main__":
@@ -43,4 +43,4 @@ if __name__ == "__main__":
         raise ValueError('Output must be a directory if multiple input files are given')
 
     for path in args.input:
-        link(path, args.output, hard=args.hard)
+        link(path.resolve(), args.output.resolve(), hard=args.hard)
